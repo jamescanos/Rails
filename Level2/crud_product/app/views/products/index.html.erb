@@ -1,12 +1,38 @@
-<h1>Products</h1>
-<ul>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
 
-    <% @products.each do |product| %>
-        <li>
-            <%= link_to product.name, product %>
-        </li>
-    <% end %>
+            <h1>Products</h1>
 
-</ul>
+            <div class="form-group" style="margin: 2em 0 2em 0;">
+                <%= link_to 'New Product', new_product_path, class: "btn btn-sm btn-primary" %>
+            </div>
 
-<%= link_to "New Product", new_product_path %>
+            <table class="table table-bordered">
+
+                <tr style="text-align:center;">
+                    <th>ID</th>
+                    <th>Product</th>
+                    <th>Actions</th>
+                </tr>
+
+                <tbody>
+
+                    <% @products.each do |product| %>
+                        <tr style="text-align:center;">
+                            <td><%= product.id %></td>
+                            <td><%= link_to product.name, product %></td>
+                            <td><%= link_to "Edit", edit_product_path(product), class: "btn btn-sm btn-warning" %>
+                                <%= link_to "Destroy", product_path(product), 
+                                method: :delete,
+                                data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-primary" %>
+                            </td>                      
+                        </tr>
+                    <% end %>
+
+                </tbody>
+        
+            </table>
+        </div>
+    </div>
+</div>        

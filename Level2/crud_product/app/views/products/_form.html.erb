@@ -1,23 +1,43 @@
-<%= form_with model: @product do |form| %>
-    <div>
-        <%= form.label :name %><br>
-        <%= form.text_field :name %><br>
-        <% @product.errors.full_messages_for(:title).each do |message| %>
-            <div><%= message %></div>
-        <%end%>
+        
+<%= form_with model: @product, :html => {:class => "form-inline"} do |form| %>
+    
+    <div class="form-group">
+
+        <%= form.label :name, "Product", class: "col-md-4 control-label" %>
+
+        <div class="col-md-4">
+            <%= form.text_field :name, class: "form-control" %>
+        
+    
+            <% @product.errors.full_messages_for(:title).each do |message| %>
+                <div><%= message %></div>
+            <%end%>
+
+        </div>
+
     </div>
 
-    <div>
-        <%= form.label :price %><br>
-        <%= form.text_field :price %><br>
-        <% @product.errors.full_messages_for(:price).each do |message| %>
-            <%= message %>
-        <%end%>
+    <div class="form-group">
+
+        <%= form.label :price, "Price", class: "col-md-4 control-label" %>
+
+        <div class="col-md-4">
+
+            <%= form.text_field :price, class: "form-control" %>
+
+            <% @product.errors.full_messages_for(:price).each do |message| %>
+                <%= message %>
+            <%end%>
+
+        </div>
+
     </div>
+
     <br>
 
     <div>
-        <%= form.submit %>
+        <%= form.submit "Submit", class: "btn btn-default btn-success" %>
+        <%= link_to 'Back', root_path, class: "btn btn-primary" %>
     </div>
 
-<% end %>    
+<% end %>  
