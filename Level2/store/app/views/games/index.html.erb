@@ -1,0 +1,51 @@
+<%= render "welcome/menu" %>
+
+<main>
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Games</h1>
+        <p class="lead text-muted">Game Management.</p>
+        <p>
+            <%= link_to 'New Game', new_game_path, class: "btn btn-success my-2" %>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 text-center container">
+
+    <table class="table table-bordered">
+
+        <tr style="text-align:center;">
+            <th>ID</th>
+            <th>Game</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Platform</th>
+            <th>Actions</th>
+        </tr>
+
+        <tbody>
+
+            <% @games.each do |game| %>
+                <tr style="text-align:center;">
+                    <td><%= game.id %></td>
+                    <td><%= game.name %></td>
+                    <td><%= game.price %></td>
+                    <td><%= game.description %></td>
+                    <td><%= game.platform %></td>
+                    <td><%= link_to "Edit", edit_game_path(game), class: "btn btn-sm btn-warning" %>
+                        <%= link_to "Destroy", game_path(game), 
+                        method: :delete,
+                        data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+                    </td>                      
+                </tr>
+            <% end %>
+
+        </tbody>
+
+    </table>
+
+  </section>
+</main>
