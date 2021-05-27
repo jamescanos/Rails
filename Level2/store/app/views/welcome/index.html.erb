@@ -1,0 +1,17 @@
+<%= render "menu" %>
+
+<main>
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Online Store</h1>
+        <p class="lead text-muted">Software management system allows create new companies, books and games, otherwise, you can assign categories to books and platforms to games.</p>
+        <p>
+            <%= link_to 'Company', companies_path, class: "btn btn-success my-2" %>
+            <a href="#" class="btn btn-info my-2">Books</a>
+            <a href="#" class="btn btn-warning my-2">Games</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
