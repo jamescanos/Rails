@@ -4,10 +4,10 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Companies</h1>
-        <p class="lead text-muted">Company Management.</p>
+        <h1 class="fw-light">Platforms</h1>
+        <p class="lead text-muted">Platform Management.</p>
         <p>
-            <%= link_to 'New Company', new_company_path, class: "btn btn-success my-2" %>
+            <%= link_to 'New Platform', new_platform_path, class: "btn btn-success my-2" %>
             <%= link_to 'Home', root_path, class: "btn btn-primary my-2" %>
         </p>
       </div>
@@ -20,18 +20,18 @@
 
         <tr style="text-align:center;">
             <th>ID</th>
-            <th>Company</th>
+            <th>Platform</th>
             <th>Actions</th>
         </tr>
 
         <tbody>
 
-            <% @companies.each do |company| %>
+            <% @platforms.each do |platform| %>
                 <tr style="text-align:center;">
-                    <td><%= company.id %></td>
-                    <td><%= company.name %></td>
-                    <td><%= link_to "Edit", edit_company_path(company), class: "btn btn-sm btn-warning" %>
-                        <%= link_to "Destroy", company_path(company), 
+                    <td><%= platform.id %></td>
+                    <td><%= platform.name %></td>
+                    <td><%= link_to "Edit", edit_platform_path(platform), class: "btn btn-sm btn-warning" %>
+                        <%= link_to "Destroy", platform_path(platform), 
                         method: :delete,
                         data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
                     </td>                      

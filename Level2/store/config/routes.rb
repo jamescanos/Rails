@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   root to: "welcome#index" 
 
   resources :companies
-
   resources :games
+  resources :books
+  resources :platforms
 
 end
