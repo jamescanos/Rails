@@ -22,20 +22,28 @@
             <th>Game</th>
             <th>Price</th>
             <th>Description</th>
+            <th>Company</th>
             <th>Platform</th>
             <th>Actions</th>
         </tr>
 
         <tbody>
 
-            <% @games.each do |game| %>
+            <% 
+            
+            @showgames = Game.joins(:company => :platform)
+            @games.each do |game| 
+            
+            %>
+              <%= @showgames %>
                 <tr style="text-align:center;">
                     <td><%= game.id %></td>
                     <td><%= game.name %></td>
                     <td><%= game.price %></td>
                     <td><%= game.description %></td>
-                    <td><%= game.platform %></td>
-                    <td><%= link_to "Edit", edit_game_path(game), class: "btn btn-sm btn-warning" %>
+                    <td><%= game.platform_id %></td>
+                    <td><%= game.company_id %></td>
+                      <td><%= link_to "Edit", edit_game_path(game), class: "btn btn-sm btn-warning" %>
                         <%= link_to "Destroy", game_path(game), 
                         method: :delete,
                         data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>

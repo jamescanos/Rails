@@ -9,9 +9,9 @@ class GamesController < ApplicationController
       end
     
       def create
-    
+
         @game = Game.new(game_params)
-    
+        
         if @game.save
           redirect_to games_path
         else
@@ -29,7 +29,7 @@ class GamesController < ApplicationController
       def update
     
         @game = Game.find(params[:id])
-    
+        puts @game 
         if @game.update(game_params)
           redirect_to games_path
         else
@@ -49,8 +49,9 @@ class GamesController < ApplicationController
     
       private
     
-        def game_params
-          params.required(:game).permit(:name)
+        def game_params                
+          params.required(:game).permit(:name, :price, :description, :company_id, :platform_id)
+          #params.required(:game).permit(:name, :price, :description, :company_id)
         end
 
 end
