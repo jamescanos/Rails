@@ -1,8 +1,8 @@
 class BooksController < ApplicationController
   
   def index
-    @books = Book.all
-    @booksjoin = Book.joins(:companies, :platform)
+    @books = Book.joins(:company)
+    #@booksjoin = Book.includes(:companies, :platform)
   end
   
   def new

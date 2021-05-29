@@ -7,4 +7,6 @@ class Book < ApplicationRecord
   validates :editor, presence: true
   validates :description, presence: true, length: { maximum: 250 }
 
+  #books = Book.includes(:company)
+
 end

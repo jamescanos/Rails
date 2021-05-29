@@ -30,12 +30,7 @@
 
         <tbody>
 
-            <% 
-            
-            #@showbooks = book.includes(:company => :platform)
-            @books.each do |book| 
-            
-            %>
+            <% @books.each do |book| %>
               
                 <tr style="text-align:center;">
                     <td><%= book.id %></td>
@@ -44,11 +39,15 @@
                     <td><%= book.author %></td>
                     <td><%= book.editor %></td>
                     <td><%= book.description %></td>
-                    <td><%= book.company_id %></td>
-                      <td><%= link_to "Edit", edit_book_path(book), class: "btn btn-sm btn-warning" %>
-                        <%= link_to "Destroy", book_path(book), 
-                        method: :delete,
-                        data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+                    <td>
+                      <%= 
+                        book.company.name
+                      %>
+                    </td>
+                    <td><%= link_to "Edit", edit_book_path(book), class: "btn btn-sm btn-warning" %>
+                      <%= link_to "Destroy", book_path(book), 
+                      method: :delete,
+                      data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
                     </td>                      
                 </tr>
             <% end %>       

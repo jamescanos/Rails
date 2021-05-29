@@ -1,8 +1,8 @@
 class GamesController < ApplicationController
 
     def index
-      @games = Game.all
-      @gamesjoin = Game.joins(:companies, :platform)
+      #@books = Book.joins(:company)
+      @games = Game.joins(:company, "INNER JOIN platforms ON games.platform_id = platforms.id")
     end
     
     def new
