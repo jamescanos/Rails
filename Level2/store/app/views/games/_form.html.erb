@@ -1,6 +1,5 @@
-
 <main>
-  <section class="py-5 text-center container">
+  <section class="py-2 container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         
@@ -8,37 +7,35 @@
         
         <div style="margin-top: 2em;">
 
-          <%= form_with model: @game, class:"form-inline" do |form| %>
+          <%= form_with model: @game do |form| %>
 
-            <div class="row">              
-
-              <div class="form-group row">
-                                  
-                <%= form.label :name, class:"col-sm-2 col-form-label" %>
-
-                <div class="col-sm-10">
-                  <%= form.text_field :name, class:"form-control" %>
-                </div>
-
-                <% @game.errors.full_messages_for(:name).each do |message| %>
-                      <div style="margin: 1em;0;0;1em" class="alert alert-danger alert-dismissible fade show" role="alert" role="alert"><%= message %></div>
-                <% end %>
-
+            <div class="mb-1">        
+                                                    
+              <%= form.label :name, class:"col-sm-2 col-form-label" %>
+              <div class="col-sm-10">
+                <%= form.text_field :name, class:"form-control" %>
               </div>
 
-              <div class="form-group row">                                  
-                <%= form.label :price, class:"col-sm-2 col-form-label" %>
-                <div class="col-sm-10">
-                  <%= form.number_field :price, class:"form-control"  %>
-                </div>
+              <% @game.errors.full_messages_for(:name).each do |message| %>
+                    <div style="margin: 1em;0;0;1em" class="alert alert-danger alert-dismissible fade show" role="alert" role="alert"><%= message %></div>
+              <% end %>
 
-                <% @game.errors.full_messages_for(:price).each do |message| %>
-                  <div style="margin: 1em;0;0;1em" class="alert alert-danger alert-dismissible fade show" role="alert" role="alert"><%= message %></div>
-                <% end %>
+            </div>
 
+            <div class="mb-1"> 
+                                              
+              <%= form.label :price, class:"col-sm-2 col-form-label" %>
+              <div class="col-sm-10">
+                <%= form.number_field :price, class:"form-control"  %>
               </div>
 
-              <div class="form-group row">                                  
+              <% @game.errors.full_messages_for(:price).each do |message| %>
+                <div style="margin: 1em;0;0;1em" class="alert alert-danger alert-dismissible fade show" role="alert" role="alert"><%= message %></div>
+              <% end %>
+
+            </div>
+
+              <div class="mb-1">                                  
                 <%= form.label :description, class:"col-sm-2 col-form-label" %>
 
                 <div class="col-sm-10">
@@ -51,23 +48,23 @@
 
               </div>
 
-              <div class="form-group row">    
+              <div class="mb-1">    
 
                 <%= form.label :company_id, class:"col-sm-2 col-form-label" %>
                 <div class="col-sm-10">
-                  <%= form.select :company_id, Company.all.collect { |c| [ c.name, c.id ] }, include_blank: true %>
+                  <%= form.select :company_id, Company.all.collect { |c| [ c.name, c.id ] }, { :include_blank => true }, {:class => 'form-select', 'aria-label' => 'Select Company'} %>
                 </div>
 
               </div>
 
-              <div class="form-group row">                                  
+              <div class="mb-1">                                  
                 <%= form.label :platform_id, class:"col-sm-2 col-form-label" %>
                 <div class="col-sm-10">
-                   <%= form.select :platform_id, Platform.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+                   <%= form.select :platform_id, Platform.all.collect { |p| [ p.name, p.id ] }, { :include_blank => true }, {:class => 'form-select', 'aria-label' => 'Select Platform'} %>
                 </div>
               </div>
 
-              <div style="margin-top: 1em;">
+              <div style="mb-1">
                   <%= form.submit "Submit", class: "btn btn-default btn-success" %>
                   <%= link_to 'Back', games_path, class: "btn btn-primary" %>
               </div>
