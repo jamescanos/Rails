@@ -1,5 +1,7 @@
 class Platform < ApplicationRecord
-    #belongs_to :games
-    #has_many :games
+
+    #belongs_to :game
+    has_one :game
     validates :name, presence: true
+
 end

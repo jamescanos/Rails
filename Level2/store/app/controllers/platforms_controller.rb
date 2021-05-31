@@ -13,7 +13,7 @@ class PlatformsController < ApplicationController
         @platform = Platform.new(platform_params)
     
         if @platform.save
-          redirect_to platform_path
+          redirect_to platforms_path
         else
           render :new
         end
