@@ -1,8 +1,8 @@
 class BooksController < ApplicationController
   
   def index
-    @books = Book.joins(:company)
-    #@booksjoin = Book.includes(:companies, :platform)
+    #@books = Book.joins(:company)
+    @books = Book.joins(:company, :category)
   end
   
   def new
@@ -51,7 +51,7 @@ class BooksController < ApplicationController
   private
 
     def book_params                
-      params.required(:book).permit(:name, :price, :author, :editor, :description, :company_id)
+      params.required(:book).permit(:name, :price, :author, :editor, :description, :company_id, :category_id)
       #params.required(:game).permit(:name, :price, :description, :company_id)
     end
 

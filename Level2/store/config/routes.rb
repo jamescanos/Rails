@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   resources :games
   resources :books
   resources :platforms
+  resources :categories
 
 end

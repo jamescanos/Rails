@@ -1,0 +1,29 @@
+
+<main>
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">New  Category</h1>
+        
+        <div style="margin-top: 2em;">
+            <%= form_with model: @category do |form| %>
+            
+                <div>
+                    <%= form.label :name %>
+                    <%= form.text_field :name %>
+                    <% @category.errors.full_messages_for(:name).each do |message| %>
+                        <div style="margin: 1em;0;0;1em" class="alert alert-danger alert-dismissible fade show" role="alert" role="alert"><%= message %></div>
+                    <% end %>
+                </div>
+
+                <div style="margin-top: 1em;">
+                    <%= form.submit "Submit", class: "btn btn-default btn-success" %>
+                    <%= link_to 'Back', categories_path, class: "btn btn-primary" %>
+                </div>
+            <%end%>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>

@@ -24,6 +24,7 @@
             <th>Author</th>
             <th>Editor</th>
             <th>Description</th>
+            <th>Category</th>
             <th>Company</th>
             <th>Actions</th>
         </tr>
@@ -39,10 +40,8 @@
                     <td><%= book.author %></td>
                     <td><%= book.editor %></td>
                     <td><%= book.description %></td>
-                    <td>
-                      <%= 
-                        book.company.name
-                      %>
+                    <td><%= book.category.name%>
+                    <td><%= book.company.name%>
                     </td>
                     <td><%= link_to "Edit", edit_book_path(book), class: "btn btn-sm btn-warning" %>
                       <%= link_to "Destroy", book_path(book), 
