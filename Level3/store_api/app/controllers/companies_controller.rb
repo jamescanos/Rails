@@ -9,7 +9,11 @@ class CompaniesController < ApplicationController
     def show
         @company = Company.find(params[:id])
         #render json: @company
-        render json: { status: "SUCCESS", message: "Companies List", data: @company}, status: :ok
+        if @company
+            render json: { status: "SUCCESS", message: "Companies List Show", data: @company}, status: :ok
+        else
+            render json: { status: "ERROR", message: "Company doesn't exists", data: @company.errors}, status: :unprocessable_entity
+        end
     end
 
     def create
@@ -27,6 +31,28 @@ class CompaniesController < ApplicationController
         end
 
     end
+
+    def update
+        
+        @company = Company.find(params[:id])
+
+        if @company.update(company_params)
+           render json: { status: "SUCCESS", message: "Company Updated", data: @company}, status: :ok
+        else
+            render json: { status: "ERROR", message: "You were enable to update Company", data: @company.errors}, status: :unprocessable_entity
+        end
+
+    end
+
+    def destroy
+
+        @companies = Company.all
+        @company = Company.find(params[:id])
+        @company.destroy
+        render json: @companies
+        
+    end
+
 
     private
         def company_params
