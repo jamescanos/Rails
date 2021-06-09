@@ -1,14 +1,15 @@
 class CompaniesController < ApplicationController
 
+    rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+
     def index
         @companies = Company.all
-        #render json: @companies
         render json: { status: "SUCCESS", message: "Companies List", data: @companies}, status: :ok
     end
 
     def show
         @company = Company.find(params[:id])
-        #render json: @company
+
         if @company
             render json: { status: "SUCCESS", message: "Companies List Show", data: @company}, status: :ok
         else
@@ -20,10 +21,6 @@ class CompaniesController < ApplicationController
         
         @company = Company.new(company_params)
 
-        #@company = Company.new(
-        #    name: params[:name]
-        #)
-        #render json: { status: "SUCCESS", message: "New Company Created", data: @company}, status: :ok
         if @company.save
            render json: { status: "SUCCESS", message: "New Company Created", data: @company}, status: :ok
         else
@@ -55,10 +52,18 @@ class CompaniesController < ApplicationController
 
 
     private
+    
         def company_params
-            #puts "Params: #{params[:name]}"
             #params.require(:company).permit(:name)
             params.permit(:name)
+        end
+    
+        def record_not_found(error)
+            render json: { 
+                status: "ERROR", 
+                error: error.message,
+            }, 
+                status: :not_found
         end
 
 end

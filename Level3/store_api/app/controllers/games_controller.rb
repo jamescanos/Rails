@@ -1,15 +1,9 @@
 class GamesController < ApplicationController
 
+    rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+    
     def index
-        #@games = Game.joins(:company, :platform)
         @games = Game.all 
-        render :json => @games.to_json(:include => [:company, :platform])
-        #render json: { 
-        #    status: "SUCCESS",
-        #    message: "Games List Show", 
-        #    data: @games.to_json(:include => [:company, :platform])
-        #}, 
-        #    status: :ok
     end
 
     def show
@@ -56,9 +50,16 @@ class GamesController < ApplicationController
 
     private
 
-        def game_params                
-            #params.required(:game).permit(:name, :price, :author, :editor, :description, :company_id, :platform_id)
+        def game_params                            
             params.permit(:name, :price, :description, :company_id, :platform_id)
+        end
+
+        def record_not_found(error)
+            render json: { 
+                status: "ERROR", 
+                error: error.message,
+            }, 
+                status: :not_found
         end
 
 end

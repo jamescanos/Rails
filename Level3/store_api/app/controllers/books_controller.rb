@@ -1,5 +1,7 @@
 class BooksController < ApplicationController
 
+    rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+
     def index
         #@books = Book.joins(:company, :category)
         @books = Book.all 
@@ -53,6 +55,14 @@ class BooksController < ApplicationController
         def book_params                
             #params.required(:book).permit(:name, :price, :author, :editor, :description, :company_id, :category_id)
             params.permit(:name, :price, :author, :editor, :description, :company_id, :category_id)
+        end
+
+        def record_not_found(error)
+            render json: { 
+                status: "ERROR", 
+                error: error.message,
+            }, 
+                status: :not_found
         end
 
 end

@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
 
+    rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+    
     def index
         @categories = Category.all
         render json: { status: "SUCCESS", message: "Categories List", data: @categories}, status: :ok
@@ -48,10 +50,17 @@ class CategoriesController < ApplicationController
         
     end
 
-
     private
         def category_params
             params.permit(:name)
+        end
+
+        def record_not_found(error)
+            render json: { 
+                status: "ERROR", 
+                error: error.message,
+            }, 
+                status: :not_found
         end
 
 end
