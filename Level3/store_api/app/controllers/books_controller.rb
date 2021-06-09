@@ -31,20 +31,21 @@ class BooksController < ApplicationController
     def update
 
         @book = Book.find(params[:id])
-        puts @book 
+
         if @book.update(book_params)
-            redirect_to books_path
+            render json: { status: "SUCCESS", message: "Book Updated", data: @book}, status: :ok
         else
-            render :edit
+            render json: { status: "ERROR", message: "You were enable to update the Book", data: @book.errors}, status: :unprocessable_entity
         end
 
     end
 
     def destroy
+        @books = Book.all
         @book = Book.find(params[:id])
         @book.destroy
 
-        redirect_to books_path
+        render json: @books
     end
 
     private
