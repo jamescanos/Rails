@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   #resources :companies, only: [:index, :show, :create, :update, :destroy]
   resources :companies
   resources :platforms
+  resources :categories
+  resources :books
 end
