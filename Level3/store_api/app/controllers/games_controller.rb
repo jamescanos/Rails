@@ -4,15 +4,26 @@ class GamesController < ApplicationController
     
     def index
         @games = Game.all 
+        render :json => @games.to_json(:include => [:company, :platform])
     end
 
     def show
         @game = Game.find(params[:id])
-        #render json: @company
+
         if @game
-            render json: { status: "SUCCESS", message: "Games List Show", data: @game}, status: :ok
+            render json: { 
+                status: "SUCCESS", 
+                message: "Games List Show", 
+                data: @game
+            }, 
+                status: :ok
         else
-            render json: { status: "ERROR", message: "Game doesn't exists", data: @game.errors}, status: :unprocessable_entity
+            render json: { 
+                status: "ERROR", 
+                message: "Game doesn't exists", 
+                data: @game.errors
+            }, 
+                status: :unprocessable_entity
         end
     end
 
@@ -21,9 +32,19 @@ class GamesController < ApplicationController
         @game = Game.new(game_params)
         
         if @game.save
-            render json: { status: "SUCCESS", message: "New Game Created", data: @game}, status: :ok
+            render json: { 
+                status: "SUCCESS", 
+                message: "New Game Created", 
+                data: @game
+            }, 
+                status: :ok
         else
-            render json: { status: "ERROR", message: "You were enable to save a new Game", data: @game.errors}, status: :unprocessable_entity
+            render json: { 
+                status: "ERROR", 
+                message: "You were enable to save a new Game", 
+                data: @game.errors
+            }, 
+                status: :unprocessable_entity
         end
 
     end
@@ -33,9 +54,19 @@ class GamesController < ApplicationController
         @game = Game.find(params[:id])
 
         if @game.update(game_params)
-            render json: { status: "SUCCESS", message: "Game Updated", data: @game}, status: :ok
+            render json: { 
+                status: "SUCCESS", 
+                message: "Game Updated", 
+                data: @game
+            }, 
+                status: :ok
         else
-            render json: { status: "ERROR", message: "You were enable to update the Game", data: @game.errors}, status: :unprocessable_entity
+            render json: { 
+                status: "ERROR", 
+                message: "You were enable to update the Game", 
+                data: @game.errors
+            }, 
+                status: :unprocessable_entity
         end
 
     end

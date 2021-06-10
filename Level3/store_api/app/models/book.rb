@@ -1,7 +1,7 @@
 class Book < ApplicationRecord
   
-  belongs_to :company
   belongs_to :category
+  belongs_to :company  
   
   validates :name, presence: true
   validates :price, presence: true, numericality: true
