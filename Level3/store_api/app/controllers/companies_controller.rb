@@ -4,16 +4,31 @@ class CompaniesController < ApplicationController
 
     def index
         @companies = Company.all
-        render json: { status: "SUCCESS", message: "Companies List", data: @companies}, status: :ok
+        render json: { 
+            status: "SUCCESS", 
+            message: "Companies List", 
+            data: @companies
+        }, 
+        status: :ok
     end
 
     def show
         @company = Company.find(params[:id])
 
         if @company
-            render json: { status: "SUCCESS", message: "Companies List Show", data: @company}, status: :ok
+            render json: { 
+                status: "SUCCESS", 
+                message: "Companies List Show", 
+                data: @company
+            }, 
+            status: :ok
         else
-            render json: { status: "ERROR", message: "Company doesn't exists", data: @company.errors}, status: :unprocessable_entity
+            render json: { 
+                status: "ERROR", 
+                message: "Company doesn't exists", 
+                data: @company.errors
+            }, 
+            status: :unprocessable_entity
         end
     end
 
@@ -22,9 +37,19 @@ class CompaniesController < ApplicationController
         @company = Company.new(company_params)
 
         if @company.save
-           render json: { status: "SUCCESS", message: "New Company Created", data: @company}, status: :ok
+           render json: { 
+               status: "SUCCESS", 
+               message: "New Company Created", 
+               data: @company
+            }, 
+            status: :ok
         else
-            render json: { status: "ERROR", message: "You were enable to save a new Company", data: @company.errors}, status: :unprocessable_entity
+            render json: { 
+                status: "ERROR", 
+                message: "You were enable to save a new Company", 
+                data: @company.errors
+            }, 
+            status: :unprocessable_entity
         end
 
     end
@@ -34,9 +59,19 @@ class CompaniesController < ApplicationController
         @company = Company.find(params[:id])
 
         if @company.update(company_params)
-           render json: { status: "SUCCESS", message: "Company Updated", data: @company}, status: :ok
+           render json: { 
+               status: "SUCCESS", 
+               message: "Company Updated", 
+               data: @company
+            }, 
+            status: :ok
         else
-            render json: { status: "ERROR", message: "You were enable to update Company", data: @company.errors}, status: :unprocessable_entity
+            render json: { 
+                status: "ERROR", 
+                message: "You were enable to update Company", 
+                data: @company.errors
+            }, 
+            status: :unprocessable_entity
         end
 
     end
