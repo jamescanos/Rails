@@ -43,7 +43,8 @@ class BooksController < ApplicationController
             render json: { 
                 status: "ERROR", 
                 message: "You were enable to save a new Book", 
-                data: @book.errors
+                data: 
+                @book.errors,
             }, 
             status: :unprocessable_entity
         end
