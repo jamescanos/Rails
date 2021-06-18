@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_203411) do
+ActiveRecord::Schema.define(version: 2021_06_18_174310) do
 
   create_table "clients", force: :cascade do |t|
     t.string "name"
@@ -32,6 +32,22 @@ ActiveRecord::Schema.define(version: 2021_06_17_203411) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.integer "company_id", null: false
+    t.integer "role_id", null: false
+    t.integer "country_id", null: false
+    t.integer "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["company_id"], name: "index_employees_on_company_id"
+    t.index ["country_id"], name: "index_employees_on_country_id"
+    t.index ["deleted_at"], name: "index_employees_on_deleted_at"
+    t.index ["project_id"], name: "index_employees_on_project_id"
+    t.index ["role_id"], name: "index_employees_on_role_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.integer "client_id", null: false
@@ -47,5 +63,9 @@ ActiveRecord::Schema.define(version: 2021_06_17_203411) do
   end
 
   add_foreign_key "clients", "companies"
+  add_foreign_key "employees", "companies"
+  add_foreign_key "employees", "countries"
+  add_foreign_key "employees", "projects"
+  add_foreign_key "employees", "roles"
   add_foreign_key "projects", "clients"
 end

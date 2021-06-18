@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
 
+    has_one :employee
     belongs_to :client
 
     validates :name, presence: true
