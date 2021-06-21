@@ -1,5 +1,7 @@
 class Client < ApplicationRecord
 
+    acts_as_paranoid
+    
     has_many :project
     belongs_to :company
 
