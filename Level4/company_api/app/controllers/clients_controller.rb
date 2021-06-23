@@ -3,7 +3,11 @@ class ClientsController < ApplicationController
     before_action :get_id, only: [:show, :update, :destroy]
 
     rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
-
+    
+    rescue_from ActionDispatch::Http::Parameters::ParseError do |exception|
+        render status: 400, json: { errors: [ exception.cause.message ] }
+    end
+    
     def index
         #@clients = Client.select('id, name, company_id')
         @clients = Client.order(id: :asc).joins(:company).pluck("clients.id, clients.name, companies.name")
@@ -45,6 +49,7 @@ class ClientsController < ApplicationController
             }, 
             status: :ok
         else
+            
             render json: { 
                 status: "ERROR", 
                 message: "You were enable to save a new Client", 
@@ -52,7 +57,9 @@ class ClientsController < ApplicationController
             }, 
             status: :unprocessable_entity
         end
-
+    
+    rescue ActionDispatch::Http::Parameters::ParseError => exception
+        render status: 400, json: { errors: [ exception.message ] }
     end
 
     def update
@@ -81,8 +88,7 @@ class ClientsController < ApplicationController
         @client.destroy
         render json: @clients
         
-    end
-
+    end    
 
     private
     
