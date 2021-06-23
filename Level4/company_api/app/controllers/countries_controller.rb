@@ -5,29 +5,15 @@ class CountriesController < ApplicationController
 
     def index
         @countries = Country.all
-        render json: { 
-            status: "SUCCESS", 
-            message: "Countries List", 
-            data: @countries
-        }, 
+        render json: { status: "SUCCESS", message: "Countries List", data: @countries}, 
         status: :ok
     end
 
     def show
         if @country
-            render json: { 
-                status: "SUCCESS", 
-                message: "Countries List Show", 
-                data: @country
-            }, 
-            status: :ok
+            render json: { status: "SUCCESS", message: "Countries List Show", data: @country}, status: :ok
         else
-            render json: { 
-                status: "ERROR", 
-                message: "Country doesn't exists", 
-                data: @country.errors
-            }, 
-            status: :unprocessable_entity
+            render json: { status: "ERROR", message: "Country doesn't exists", data: @country.errors}, status: :unprocessable_entity
         end
     end
 
@@ -36,45 +22,21 @@ class CountriesController < ApplicationController
     end
 
     def create
-        
         @country = Country.new(country_params)
 
         if @country.save
-           render json: { 
-               status: "SUCCESS", 
-               message: "New Country Created", 
-               data: @country
-            }, 
-            status: :ok
+           render json: { status: "SUCCESS", message: "New Country Created", data: @country},status: :ok
         else
-            render json: { 
-                status: "ERROR", 
-                message: "You were enable to save a new Country", 
-                data: @country.errors
-            }, 
-            status: :unprocessable_entity
+            render json: { status: "ERROR", message: "You were enable to save a new Country", data: @country.errors}, status: :unprocessable_entity
         end
-
     end
 
     def update
-
         if @country.update(country_params)
-           render json: { 
-               status: "SUCCESS", 
-               message: "Country Updated", 
-               data: @country
-            }, 
-            status: :ok
+           render json: { status: "SUCCESS",message: "Country Updated", data: @country}, status: :ok
         else
-            render json: { 
-                status: "ERROR", 
-                message: "You were enable to update Country", 
-                data: @country.errors
-            }, 
-            status: :unprocessable_entity
+            render json: { status: "ERROR", message: "You were enable to update Country", data: @country.errors}, status: :unprocessable_entity
         end
-
     end
 
     def destroy
@@ -90,11 +52,7 @@ class CountriesController < ApplicationController
         end
     
         def record_not_found(error)
-            render json: { 
-                status: "ERROR", 
-                error: error.message,
-            }, 
-                status: :not_found
+            render json: { status: "ERROR", error: error.message,}, status: :not_found
         end
         
 end

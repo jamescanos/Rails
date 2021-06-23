@@ -1,7 +1,6 @@
 class EmployeesController < ApplicationController    
 
     before_action :get_id, only: [:show, :update, :destroy]
-
     rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
     def index
@@ -10,21 +9,10 @@ class EmployeesController < ApplicationController
     end
 
     def show
-
         if @employee
-            render json: { 
-                status: "SUCCESS", 
-                message: "EMployees List Show", 
-                data: @employee
-            }, 
-            status: :ok
+            render json: { status: "SUCCESS", message: "EMployees List Show", data: @employee}, status: :ok
         else
-            render json: { 
-                status: "ERROR", 
-                message: "Employee doesn't exists", 
-                data: @employee.errors
-            }, 
-            status: :unprocessable_entity
+            render json: { status: "ERROR", message: "Employee doesn't exists", data: @employee.errors}, status: :unprocessable_entity
         end
     end
 
@@ -33,45 +21,22 @@ class EmployeesController < ApplicationController
     end
 
     def create
-        
         @employee = Employee.new(employee_params)
 
         if @employee.save
-           render json: { 
-               status: "SUCCESS", 
-               message: "New Employee Created", 
-               data: @employee
-            }, 
-            status: :ok
+           render json: { status: "SUCCESS", message: "New Employee Created", data: @employee}, status: :ok
         else
-            render json: { 
-                status: "ERROR", 
-                message: "You were enable to save a new Employee", 
-                data: @employee.errors
-            }, 
-            status: :unprocessable_entity
+            render json: { status: "ERROR", message: "You were enable to save a new Employee", data: @employee.errors}, status: :unprocessable_entity
         end
-
     end
 
     def update
-
         if @employee.update(employee_params)
            render json: { 
-               status: "SUCCESS", 
-               message: "Employee Updated", 
-               data: @employee
-            }, 
-            status: :ok
+               status: "SUCCESS", message: "Employee Updated", data: @employee}, status: :ok
         else
-            render json: { 
-                status: "ERROR", 
-                message: "You were enable to update Employee", 
-                data: @employee.errors
-            }, 
-            status: :unprocessable_entity
+            render json: { status: "ERROR", message: "You were enable to update Employee", data: @employee.errors}, status: :unprocessable_entity
         end
-
     end
 
     def destroy
@@ -88,11 +53,7 @@ class EmployeesController < ApplicationController
         end
     
         def record_not_found(error)
-            render json: { 
-                status: "ERROR", 
-                error: error.message,
-            }, 
-                status: :not_found
+            render json: { status: "ERROR", error: error.message,}, status: :not_found
         end
 
 end

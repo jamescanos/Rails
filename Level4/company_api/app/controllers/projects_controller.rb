@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
 
     before_action :get_id, only: [:show, :update, :destroy]
-
     rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
     def index
@@ -10,21 +9,10 @@ class ProjectsController < ApplicationController
     end
 
     def show
-
         if @project
-            render json: { 
-                status: "SUCCESS", 
-                message: "Projects List Show", 
-                data: @project
-            }, 
-            status: :ok
+            render json: { status: "SUCCESS", message: "Projects List Show", data: @project}, status: :ok
         else
-            render json: { 
-                status: "ERROR", 
-                message: "Project doesn't exists", 
-                data: @project.errors
-            }, 
-            status: :unprocessable_entity
+            render json: { status: "ERROR",message: "Project doesn't exists", data: @project.errors}, status: :unprocessable_entity
         end
     end
 
@@ -33,45 +21,21 @@ class ProjectsController < ApplicationController
     end
 
     def create
-        
         @project = Project.new(project_params)
 
         if @project.save
-           render json: { 
-               status: "SUCCESS", 
-               message: "New Project Created", 
-               data: @project
-            }, 
-            status: :ok
+           render json: { status: "SUCCESS", message: "New Project Created", data: @project}, status: :ok
         else
-            render json: { 
-                status: "ERROR", 
-                message: "You were enable to save a new Project", 
-                data: @project.errors
-            }, 
-            status: :unprocessable_entity
+            render json: { status: "ERROR", message: "You were enable to save a new Project", data: @project.errors}, status: :unprocessable_entity
         end
-
     end
 
     def update
-
         if @project.update(project_params)
-           render json: { 
-               status: "SUCCESS", 
-               message: "Project Updated", 
-               data: @project
-            }, 
-            status: :ok
+           render json: { status: "SUCCESS", message: "Project Updated", data: @project}, status: :ok
         else
-            render json: { 
-                status: "ERROR", 
-                message: "You were enable to update Project", 
-                data: @project.errors
-            }, 
-            status: :unprocessable_entity
+            render json: { status: "ERROR", message: "You were enable to update Project", data: @project.errors}, status: :unprocessable_entity
         end
-
     end
 
     def destroy
@@ -80,7 +44,6 @@ class ProjectsController < ApplicationController
         render json: @projects
     end
 
-
     private
     
         def project_params
@@ -88,11 +51,7 @@ class ProjectsController < ApplicationController
         end
     
         def record_not_found(error)
-            render json: { 
-                status: "ERROR", 
-                error: error.message,
-            }, 
-                status: :not_found
+            render json: { status: "ERROR", error: error.message,}, status: :not_found
         end
 
 end

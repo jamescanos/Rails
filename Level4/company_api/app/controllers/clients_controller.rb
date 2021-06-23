@@ -4,32 +4,17 @@ class ClientsController < ApplicationController
 
     rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
     
-    rescue_from ActionDispatch::Http::Parameters::ParseError do |exception|
-        render status: 400, json: { errors: [ exception.cause.message ] }
-    end
-    
     def index
-        #@clients = Client.select('id, name, company_id')
         @clients = Client.order(id: :asc).joins(:company).pluck("clients.id, clients.name, companies.name")
         render :json => @clients
     end
 
     def show
 
-        if @client
-            render json: { 
-                status: "SUCCESS", 
-                message: "Clients List Show", 
-                data: @client
-            }, 
-            status: :ok
+        if @client            
+            render :json => @client.to_json(:include => [:company])
         else
-            render json: { 
-                status: "ERROR", 
-                message: "Client doesn't exists", 
-                data: @client.errors
-            }, 
-            status: :unprocessable_entity
+            render json: { status: "ERROR", message: "Client doesn't exists", data: @client.errors}, status: :unprocessable_entity
         end
     end
 
@@ -42,20 +27,9 @@ class ClientsController < ApplicationController
         @client = Client.new(client_params)
 
         if @client.save
-           render json: { 
-               status: "SUCCESS", 
-               message: "New Client Created", 
-               data: @client
-            }, 
-            status: :ok
-        else
-            
-            render json: { 
-                status: "ERROR", 
-                message: "You were enable to save a new Client", 
-                data: @client.errors
-            }, 
-            status: :unprocessable_entity
+           render json: { status: "SUCCESS", message: "New Client Created", data: @client}, status: :ok
+        else            
+            render json: { status: "ERROR", message: "You were enable to save a new Client", data: @client.errors}, status: :unprocessable_entity
         end
     
     rescue ActionDispatch::Http::Parameters::ParseError => exception
@@ -65,19 +39,9 @@ class ClientsController < ApplicationController
     def update
 
         if @client.update(client_params)
-           render json: { 
-               status: "SUCCESS", 
-               message: "Client Updated", 
-               data: @client
-            }, 
-            status: :ok
+           render json: { status: "SUCCESS", message: "Client Updated", data: @client}, status: :ok
         else
-            render json: { 
-                status: "ERROR", 
-                message: "You were enable to update Client", 
-                data: @client.errors
-            }, 
-            status: :unprocessable_entity
+            render json: { status: "ERROR", message: "You were enable to update Client", data: @client.errors}, status: :unprocessable_entity
         end
 
     end
@@ -97,11 +61,7 @@ class ClientsController < ApplicationController
         end
     
         def record_not_found(error)
-            render json: { 
-                status: "ERROR", 
-                error: error.message,
-            }, 
-                status: :not_found
+            render json: { status: "ERROR", error: error.message,}, status: :not_found
         end
 
 end
