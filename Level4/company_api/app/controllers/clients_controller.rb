@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
 
-    before_action :get_id, only: [:show, :update, :destroy]
+    before_action :authenticate_user!, :get_id, only: [:show, :update, :destroy]
 
     rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
     
