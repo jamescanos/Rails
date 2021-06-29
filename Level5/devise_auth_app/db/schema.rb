@@ -10,7 +10,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_25_202244) do
+ActiveRecord::Schema.define(version: 2021_06_28_163001) do
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.integer "company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["company_id"], name: "index_clients_on_company_id"
+    t.index ["deleted_at"], name: "index_clients_on_deleted_at"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_companies_on_deleted_at"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_countries_on_deleted_at"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.integer "company_id", null: false
+    t.integer "role_id", null: false
+    t.integer "country_id", null: false
+    t.integer "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["company_id"], name: "index_employees_on_company_id"
+    t.index ["country_id"], name: "index_employees_on_country_id"
+    t.index ["deleted_at"], name: "index_employees_on_deleted_at"
+    t.index ["project_id"], name: "index_employees_on_project_id"
+    t.index ["role_id"], name: "index_employees_on_role_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.integer "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["client_id"], name: "index_projects_on_client_id"
+    t.index ["deleted_at"], name: "index_projects_on_deleted_at"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_roles_on_deleted_at"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,4 +84,10 @@ ActiveRecord::Schema.define(version: 2021_06_25_202244) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "clients", "companies"
+  add_foreign_key "employees", "companies"
+  add_foreign_key "employees", "countries"
+  add_foreign_key "employees", "projects"
+  add_foreign_key "employees", "roles"
+  add_foreign_key "projects", "clients"
 end
