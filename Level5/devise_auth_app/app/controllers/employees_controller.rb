@@ -6,6 +6,7 @@ class EmployeesController < ApiController
 
     def index
         @employees = Employee.all 
+        @employees = Kaminari.paginate_array(@employees).page(params[:page]).per(5)
         render :json => @employees.to_json(:include => [:company, :role, :country, :project])
     end
 

@@ -7,6 +7,7 @@ class ClientsController < ApiController
     
     def index
         @clients = Client.order(id: :asc).joins(:company).pluck("clients.id, clients.name, companies.name")
+        @clients = Kaminari.paginate_array(@clients).page(params[:page]).per(5)
         render :json => @clients
     end
 

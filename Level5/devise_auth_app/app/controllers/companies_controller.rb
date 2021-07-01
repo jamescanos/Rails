@@ -1,11 +1,12 @@
 class CompaniesController < ApiController
-
+   
     before_action :authenticate_user!
     before_action :get_id, only: [:show, :update, :destroy]
     rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
     def index
         @companies = Company.all
+        @companies = Kaminari.paginate_array(@companies).page(params[:page]).per(15)
         render json: { status: "SUCCESS", message: "Companies List", data: @companies}, status: :ok
     end
 

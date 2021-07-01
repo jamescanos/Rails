@@ -6,6 +6,7 @@ class RolesController < ApiController
 
     def index
         @roles = Role.all
+        @roles = Kaminari.paginate_array(@roles).page(params[:page]).per(5)
         render json: { status: "SUCCESS", message: "Roles List", data: @roles}, status: :ok
     end
 

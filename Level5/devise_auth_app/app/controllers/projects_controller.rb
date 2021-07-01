@@ -6,6 +6,7 @@ class ProjectsController < ApiController
 
     def index
         @projects = Project.order(id: :asc).joins(:client).pluck("projects.id, projects.name, clients.name")
+        @projects = Kaminari.paginate_array(@projects).page(params[:page]).per(5)
         render :json => @projects
     end
 

@@ -6,6 +6,7 @@ class CountriesController < ApiController
 
     def index
         @countries = Country.all
+        @countries = Kaminari.paginate_array(@countries).page(params[:page]).per(5)
         render json: { status: "SUCCESS", message: "Countries List", data: @countries}, 
         status: :ok
     end

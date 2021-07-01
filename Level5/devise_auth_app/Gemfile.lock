@@ -178,6 +178,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 6.1.4)
+  rake
   sqlite3 (~> 1.4)
   tzinfo-data
 
