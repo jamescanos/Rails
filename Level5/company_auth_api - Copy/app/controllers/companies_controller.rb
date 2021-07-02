@@ -6,7 +6,7 @@ class CompaniesController < ApiController
 
     def index
         @companies = Company.all
-        @companies = Kaminari.paginate_array(@companies).page(params[:page]).per(5)
+        @companies = Kaminari.paginate_array(@companies).page(params[:page]).per(15)
         render json: { status: "SUCCESS", message: "Companies List", data: @companies}, status: :ok
     end
 
